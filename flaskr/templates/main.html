@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <head>
-        <title>{% block page_name %}{{ page_name }}{% endblock %}</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    </head>
+    <title>{% block page_name %}{{ page_name }}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
-    <!-- The below tag is using Bulma CSS. Try replacing line 14 with line 13. -->
-    <!-- <div class="has-text-success-dark is-size-4  has-text-weight-medium"> -->
+    <!-- Navigation -->
     <div>
         <a href="{{ url_for('home') }}">
             Home
@@ -24,13 +20,40 @@
             About
         </a>
     </div>
-
-    <!-- The below tag is using Bulma CSS. Try replacing line 30 with line 29. -->
-    <!-- <div class="content"> -->
+    
+    <!-- Content area -->
     <div>
+        {% if request.path == '/' or request.endpoint == 'home' %}
+        <!-- Home page content -->
+        <div class="home-container">
+            <h1 class="home-title">The premier destination for feline winter sports enthusiasts!</h1>
+            
+            <div class="button-container">
+                <a href="{{ url_for('all_pages') }}" class="nav-button pages">BROWSE STORIES</a>
+                <a href="{{ url_for('about') }}" class="nav-button about">ABOUT US</a>
+            </div>
+            
+            <div class="home-features">
+                <div class="feature-card">
+                    <h3>Amazing Stories</h3>
+                    <p>Read incredible tales of cats conquering the slopes with style and grace.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>Feline Champions</h3>
+                    <p>Meet the world's most talented skiing cats and their remarkable achievements.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>Skiing Tips</h3>
+                    <p>Expert advice for cats looking to improve their snow sports techniques.</p>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <!-- Regular content for non-home pages -->
         {% block content %}{{ page_content }}{% endblock %}
+        {% endif %}
     </div>
-
 </body>
-
 </html>
